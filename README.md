@@ -28,9 +28,6 @@ print(sqladb.race.unique())
 
 # Database with the revised column names
 sqladb.head()
-sqladb.shape
-sqladb.info()
-sqladb.describe()
 
 
 # 1. Select 10 records from the adult sqladb
@@ -63,9 +60,10 @@ q = """ select relationship,count(relationship) as Frequency from sqladb group b
 pysqldf(q)
 
 # 4. Are there any people who are married, working in private sector and having a masters degree
-
-q = """  select count(*) as count_of_people from sqladb where marital_status != ' Never-married' 
-and education =' Masters' and workclass =' Private' ;"""
+# Since the question require people who are married, I'm excluding people who are currently not married like divorced 
+# or seperated etc
+q = """ select count(*) as count_of_people from sqladb where marital_status != ' Never-married and Divorced and 
+Separated and Widowed' and education =' Masters' and workclass =' Private' ;""" 
 pysqldf(q)
 
 # 5. What is the average, minimum and maximum age group for people working in different sectors
